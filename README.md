@@ -12,6 +12,8 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 | [bundle-walkthrough](skills/bundle-walkthrough/SKILL.md) | “Where does the hotel display name come from?” |
 | [bundle-regression-test](skills/bundle-regression-test/SKILL.md) | “Capture the missing return fare in a failing test.” |
 | [bundle-fix-ci](skills/bundle-fix-ci/SKILL.md) | “Find the first failing command on this PR and fix it.” |
+| [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md) | “Babysit my hotel fallback PR until it is ready.” |
+| [bundle-takeover](skills/bundle-takeover/SKILL.md) | “Take over the venue search timeout PR, the owner is away.” |
 | [bundle-council](skills/bundle-council/SKILL.md) | “Council: review this branch before I file the PR.” |
 | [bundle-deslop](skills/bundle-deslop/SKILL.md) | “Deslop this diff.” |
 | [bundle-api-cache](skills/bundle-api-cache/SKILL.md) | “Put the new SNCF call behind the shared cache.” |
