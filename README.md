@@ -9,13 +9,28 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 | [bundle-replay](skills/bundle-replay/SKILL.md) | “My hotel is selected until I share the bundle. Reproduce what the recipient sees.” |
 | [bundle-file-pr](skills/bundle-file-pr/SKILL.md) | “File this hotel fallback fix against dev and include the verification results.” |
 | [bundle-review](skills/bundle-review/SKILL.md) | “Review this branch for regressions when someone opens an older shared bundle.” |
-| [bundle-improve-ci](skills/bundle-improve-ci/SKILL.md) | “Make sure a failing Vitest test fails the PR checks and appears in the CI summary.” |
 | [bundle-walkthrough](skills/bundle-walkthrough/SKILL.md) | “Where does the hotel display name come from?” |
-| [bundle-change-impact](skills/bundle-change-impact/SKILL.md) | “What would renaming this saved-trip field break?” |
 | [bundle-regression-test](skills/bundle-regression-test/SKILL.md) | “Capture the missing return fare in a failing test.” |
 | [bundle-fix-ci](skills/bundle-fix-ci/SKILL.md) | “Find the first failing command on this PR and fix it.” |
+| [bundle-council](skills/bundle-council/SKILL.md) | “Council: review this branch before I file the PR.” |
+| [bundle-deslop](skills/bundle-deslop/SKILL.md) | “Deslop this diff.” |
+| [bundle-api-cache](skills/bundle-api-cache/SKILL.md) | “Put the new SNCF call behind the shared cache.” |
+| [bundle-new-provider](skills/bundle-new-provider/SKILL.md) | “Add Eventbrite as an events source after OpenAgenda.” |
+| [bundle-snapshot-field](skills/bundle-snapshot-field/SKILL.md) | “Store the number of travellers in the trip without breaking old links.” |
+| [bundle-booking-links](skills/bundle-booking-links/SKILL.md) | “The Trainline return link opens a one-way search.” |
+| [bundle-transport-routing](skills/bundle-transport-routing/SKILL.md) | “Why is there no train option from Lyon to Grenoble?” |
+| [bundle-hotels](skills/bundle-hotels/SKILL.md) | “All hotels near the Accor Arena show “Prix indisponible”.” |
+| [bundle-event-search](skills/bundle-event-search/SKILL.md) | “The Zénith appears twice in event search.” |
+| [bundle-share-email](skills/bundle-share-email/SKILL.md) | “The share email never arrives in production.” |
+| [bundle-url-steps](skills/bundle-url-steps/SKILL.md) | “Rename the reserver step without breaking shared links.” |
+| [bundle-docs-sync](skills/bundle-docs-sync/SKILL.md) | “Update docs/ for this change.” |
+| [bundle-env-check](skills/bundle-env-check/SKILL.md) | “Events work locally but Ticketmaster is never used on Vercel.” |
+| [bundle-design-system](skills/bundle-design-system/SKILL.md) | “Style the new refund badge with the design system.” |
+| [bundle-e2e-flow](skills/bundle-e2e-flow/SKILL.md) | “Add a Playwright test for changing the hotel.” |
 
-These four workflows draw on [pstack](https://github.com/michael-denyer/pstack-claude).
+## Multi-model review
+
+`bundle-council` asks three models from three providers to review the change read-only. You check each finding against the code, fix, and ask for a fresh round until they agree. In Cursor it starts delegates with the `Task` tool and sets `model` per delegate, so it needs an account that offers models from at least three providers. If fewer are reachable it stops and says so.
 
 ## Install from Git
 
