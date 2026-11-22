@@ -20,6 +20,6 @@ Read docs/architecture/api-cache.md, src/lib/api-cache.ts and src/config/api-cac
 
 - Repeated misses: two callers build different keys for the same request. Log both keys.
 - A stale or empty answer that never refreshes: check whether the fetcher swallowed an error, whether the circuit breaker is open (3 failures, 60 s), or whether the daily quota is spent in `api_usage`.
-- Memory-only warnings `[api-cache]`: Supabase is missing or the migration in supabase/migrations was never run.
+- Memory-only warnings `[api-cache]`: Supabase is missing or the `api_cache` and `api_usage` tables were never created. docs/database/schema.md names a migration file that is not committed, so check the tables in Supabase directly.
 
 Verify with `npm test -- src/__tests__/api-cache.test.ts` and, for a route, two identical requests against `npm run dev` that show `miss` then `hit`.

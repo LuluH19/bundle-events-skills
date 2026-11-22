@@ -9,7 +9,7 @@ Review the diff against the target branch and remove what a careful maintainer w
 
 Remove:
 
-- Comments that restate the code, narrate the edit, or mention the task. Keep comments that explain a non-obvious reason.
+- Comments. The team convention (docs/contributing/conventions.md) allows none, except functional directives such as `eslint-disable-next-line` or `/* empty */` in a deliberately empty catch. Rename things instead.
 - Defensive checks, try/catch and fallbacks for states the types or the surrounding code already rule out. Keep validation at real boundaries, such as provider responses and request input.
 - Casts to `any` and type assertions added to silence the compiler. Fix the type instead.
 - Abstractions with one caller, unused parameters and exports, and helpers that duplicate something in `utils/`.
