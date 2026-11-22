@@ -9,9 +9,9 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 | [bundle-replay](skills/bundle-replay/SKILL.md) | “My hotel is selected until I share the bundle. Reproduce what the recipient sees.” |
 | [bundle-file-pr](skills/bundle-file-pr/SKILL.md) | “File this hotel fallback fix against dev and include the verification results.” |
 | [bundle-review](skills/bundle-review/SKILL.md) | “Review this branch for regressions when someone opens an older shared bundle.” |
-| [bundle-walkthrough](skills/bundle-walkthrough/SKILL.md) | “Where does the hotel display name come from?” |
-| [bundle-regression-test](skills/bundle-regression-test/SKILL.md) | “Capture the missing return fare in a failing test.” |
 | [bundle-fix-ci](skills/bundle-fix-ci/SKILL.md) | “Find the first failing command on this PR and fix it.” |
+| [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md) | “Babysit my hotel fallback PR until it is ready.” |
+| [bundle-takeover](skills/bundle-takeover/SKILL.md) | “Take over the venue search timeout PR, the owner is away.” |
 | [bundle-council](skills/bundle-council/SKILL.md) | “Council: review this branch before I file the PR.” |
 | [bundle-deslop](skills/bundle-deslop/SKILL.md) | “Deslop this diff.” |
 | [bundle-api-cache](skills/bundle-api-cache/SKILL.md) | “Put the new SNCF call behind the shared cache.” |
@@ -27,6 +27,12 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 | [bundle-env-check](skills/bundle-env-check/SKILL.md) | “Events work locally but Ticketmaster is never used on Vercel.” |
 | [bundle-design-system](skills/bundle-design-system/SKILL.md) | “Style the new refund badge with the design system.” |
 | [bundle-e2e-flow](skills/bundle-e2e-flow/SKILL.md) | “Add a Playwright test for changing the hotel.” |
+| [bundle-analytics-event](skills/bundle-analytics-event/SKILL.md) | “Track clicks on the new hotel booking button.” |
+| [bundle-route-guard](skills/bundle-route-guard/SKILL.md) | “Add a timeout and input checks to /api/trains/search.” |
+| [bundle-map-rendering](skills/bundle-map-rendering/SKILL.md) | “The return route line is missing on the map.” |
+| [bundle-trip-dates](skills/bundle-trip-dates/SKILL.md) | “A same-day return searches trains before my arrival.” |
+| [bundle-supabase-migration](skills/bundle-supabase-migration/SKILL.md) | “Add a user_id column to bundles.” |
+| [bundle-release](skills/bundle-release/SKILL.md) | “Prepare the release from dev to main.” |
 
 ## Multi-model review
 
