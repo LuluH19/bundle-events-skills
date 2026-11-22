@@ -19,7 +19,7 @@ Restart the watcher after every push. Do not post "still waiting" messages.
 
 ## What to look at
 
-- CI (`.github/workflows/ci.yml`): Commit Lint, PR title, ESLint, TypeScript Check, NPM Audit, Build, Dev server boot, Secret Scan and PR Summary. CI does not run Vitest, so run `npm test` locally before calling the PR ready. For a red job, use `bundle-fix-ci` to find the first failing command. Compare the run's SHA with the PR head first.
+- CI (`.github/workflows/ci.yml`): Detect changes, Commit Lint, PR title, ESLint, TypeScript Check, Unit tests (Vitest), NPM Audit, Build, E2E tests (Playwright), Dev server boot, Secret Scan, then the `CI OK` gate. `CI OK` passes when every job succeeded or was skipped, and the path filters in Detect changes can skip jobs, so check that the jobs your change needs actually ran. Lighthouse is informational. For a red job, use `bundle-fix-ci` to find the first failing command. Compare the run's SHA with the PR head first.
 - The `github-actions[bot]` summary comment: it must match the real job results. A skipped job is not a pass.
 - The `vercel[bot]` preview: open it and click through the flow the PR changes, from search to "Ton voyage" to "Réserver". A green build does not prove the page works.
 - Teammate reviews: answer every thread. Fix real findings, and reply with a short reason when you decline one. Verify each claim against the code before changing anything.
