@@ -13,11 +13,11 @@ and read `{ ok, link, sent }`. `sent: false` with `ok: true` is expected when
 Brevo is not configured: the email is stored and the stub logs instead.
 
 If nothing arrives with `sent: true`, check that `EMAIL_FROM` is the verified
-Brevo sender and is not quoted literally in Vercel, that the account has
-transactional sending enabled, and the spam folder. Use /api/health/email to
-test the configuration. For a wrong link, remember that `NEXT_PUBLIC_SITE_URL`
-builds the email link while the modal builds its copy link from
-`window.location.origin`, and they differ between preview and production.
+Brevo sender, that the account has transactional sending enabled, and the spam
+folder. Use /api/health/email to test the configuration. For a wrong link,
+remember that `NEXT_PUBLIC_SITE_URL` builds the email link while the modal
+builds its copy link from `window.location.origin`, and they differ between
+preview and production.
 
 `GET /api/bundles/{uuid}` must never return the email, since anyone with the
 link can read it. Keep the email HTML table-based, with inline styles and hex

@@ -4,28 +4,19 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 
 | Skill | Try saying |
 | --- | --- |
-| [bundle-provider-triage](skills/bundle-provider-triage/SKILL.md) | “A Paris venue appears in the provider response but disappears from search. Find where it gets dropped.” |
 | [bundle-fare-check](skills/bundle-fare-check/SKILL.md) | “After I switch to one way, the recap still looks like a round-trip price. Reconcile the total.” |
-| [bundle-replay](skills/bundle-replay/SKILL.md) | “My hotel is selected until I share the bundle. Reproduce what the recipient sees.” |
-| [bundle-file-pr](skills/bundle-file-pr/SKILL.md) | “File this hotel fallback fix against dev and include the verification results.” |
 | [bundle-review](skills/bundle-review/SKILL.md) | “Review this branch for regressions when someone opens an older shared bundle.” |
-| [bundle-fix-ci](skills/bundle-fix-ci/SKILL.md) | “Find the first failing command on this PR and fix it.” |
 | [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md) | “Babysit my hotel fallback PR until it is ready.” |
-| [bundle-takeover](skills/bundle-takeover/SKILL.md) | “Take over the venue search timeout PR, the owner is away.” |
 | [bundle-council](skills/bundle-council/SKILL.md) | “Council: review this branch before I file the PR.” |
-| [bundle-deslop](skills/bundle-deslop/SKILL.md) | “Deslop this diff.” |
 | [bundle-api-cache](skills/bundle-api-cache/SKILL.md) | “Put the new SNCF call behind the shared cache.” |
 | [bundle-new-provider](skills/bundle-new-provider/SKILL.md) | “Add Eventbrite as an events source after OpenAgenda.” |
-| [bundle-snapshot-field](skills/bundle-snapshot-field/SKILL.md) | “Store the number of travellers in the trip without breaking old links.” |
+| [bundle-snapshot-field](skills/bundle-snapshot-field/SKILL.md) | “Store the number of travellers in the trip without breaking old links.” or “My hotel is selected until I share the bundle.” |
 | [bundle-booking-links](skills/bundle-booking-links/SKILL.md) | “The Trainline return link opens a one-way search.” |
 | [bundle-transport-routing](skills/bundle-transport-routing/SKILL.md) | “Why is there no train option from Lyon to Grenoble?” |
 | [bundle-hotels](skills/bundle-hotels/SKILL.md) | “All hotels near the Accor Arena show “Prix indisponible”.” |
 | [bundle-event-search](skills/bundle-event-search/SKILL.md) | “The Zénith appears twice in event search.” |
 | [bundle-share-email](skills/bundle-share-email/SKILL.md) | “The share email never arrives in production.” |
-| [bundle-url-steps](skills/bundle-url-steps/SKILL.md) | “Rename the reserver step without breaking shared links.” |
-| [bundle-docs-sync](skills/bundle-docs-sync/SKILL.md) | “Update docs/ for this change.” |
 | [bundle-env-check](skills/bundle-env-check/SKILL.md) | “Events work locally but Ticketmaster is never used on Vercel.” |
-| [bundle-design-system](skills/bundle-design-system/SKILL.md) | “Style the new refund badge with the design system.” |
 | [bundle-e2e-flow](skills/bundle-e2e-flow/SKILL.md) | “Add a Playwright test for changing the hotel.” |
 | [bundle-analytics-event](skills/bundle-analytics-event/SKILL.md) | “Track clicks on the new hotel booking button.” |
 | [bundle-route-guard](skills/bundle-route-guard/SKILL.md) | “Add a timeout and input checks to /api/trains/search.” |
@@ -51,10 +42,12 @@ cd bundle-events-skills
 To install only selected skills, pass their names:
 
 ```sh
-./install.sh cursor bundle-review bundle-fix-ci
+./install.sh cursor bundle-api-cache bundle-babysit-pr
 ```
 
 Keep the clone where it is. Run `git pull --ff-only` there to update installed skills, then open a new agent session in Bundle Events. Rerun the installer to pick up newly added skills. To uninstall a skill, remove its symbolic link from the directory printed by the installer.
+
+A pull that removes skills leaves broken links behind. Delete them with `find -L <directory> -maxdepth 1 -name 'bundle-*' -type l -exec rm -- {} +`, using the directory printed by the installer.
 
 ## Top 5
 

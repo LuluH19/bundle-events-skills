@@ -11,10 +11,10 @@ the Supabase `api_cache` table, then the provider `fetcher`. Identical
 concurrent requests share one call.
 
 Wrap the upstream call in `cached({ provider, key, ttlMs, staleMs, fetcher,
-shouldStore })` inside the route handler, not in the client service. Build the
-key as `<provider>:<normalized request>`. Round coordinates and normalize
-dates the same way for every caller, and never put a key, token or email in
-it.
+shouldStore })` inside the route handler, not in the client service. `cached()`
+already prefixes the key with `<provider>:`, so pass only the normalized
+request as `key`. Round coordinates and normalize dates the same way for every
+caller, and never put a key, token or email in it.
 
 Make the `fetcher` throw on failure. Returning `[]` silently disables the
 stale fallback. Leave `shouldStore` at its default, which skips empty results,

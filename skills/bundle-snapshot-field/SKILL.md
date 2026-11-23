@@ -1,6 +1,6 @@
 ---
 name: bundle-snapshot-field
-description: Use for any change to what a Bundle Events trip stores in its BundleSnapshot.
+description: Use for any change to what a Bundle Events trip stores in its BundleSnapshot, when reloading or sharing a UUID link loses a selection or opens the wrong step, when a shared link returns a 404, or when adding or renaming a step such as voyage or reserver.
 ---
 
 # Bundle snapshot field
@@ -32,3 +32,39 @@ e2e/home-flow.spec.ts, and one that has it, covering a reload and opening the
 link in a fresh context. Update the snapshot table in
 docs/architecture/state-and-persistence.md and the `data` shape in
 docs/database/schema.md.
+
+## A reload or share loses a selection
+
+Pin the UUID route, the starting step, the user action and the first field
+that changes unexpectedly. Compare three snapshots: the state just before
+saving, the data returned when loading the UUID, and the selection rendered
+after hydration. The read and write path is in src/app/[uuid]/[[...step]] and
+src/services/bundles.ts.
+
+Reuse the stubs in e2e/home-flow.spec.ts with a synthetic UUID. Make the save
+stub keep the submitted data and the load stub return it, because a constant
+response hides a broken save. Open a shared link in a fresh browser context,
+and reproduce a reload in the same context. After switching to one way, check
+that a stale return leg does not reappear. Assert the visible step and the
+affected selection after the round trip. Run the case with `npm run test:e2e
+-- <spec>` and report the first snapshot that diverges.
+
+## Steps and shared URLs
+
+Read docs/architecture/routing-and-urls.md, src/types/step.ts,
+src/app/[uuid]/[[...step]]/page.tsx and src/utils/uuid.ts. One client
+component, BundleBuilder, renders every page with a `step` prop. `/` is home,
+`/{uuid}` is home for an existing trip, `/{uuid}/voyage` is the trip and
+`/{uuid}/reserver` is booking.
+
+Shared links live forever. A renamed or removed segment gets a 307 redirect to
+its replacement, like the ones the doc lists. Never turn an old segment into a
+404. A malformed UUID returns `notFound()`, and a valid but unknown UUID must
+offer a new search rather than crash.
+
+`params` is awaited in Next 16. Check node_modules/next/dist/docs/ before
+using a routing API, as AGENTS.md requires. `go(step)` writes the trip cache
+and saves in the background before `router.push`, and a new step must follow
+the same path. Verify each old and new segment on `npm run dev` with a real
+UUID: the status code, the final URL and the rendered step. Update the steps
+table and the redirect list in the doc.
