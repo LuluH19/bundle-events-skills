@@ -55,3 +55,13 @@ To install only selected skills, pass their names:
 ```
 
 Keep the clone where it is. Run `git pull --ff-only` there to update installed skills, then open a new agent session in Bundle Events. Rerun the installer to pick up newly added skills. To uninstall a skill, remove its symbolic link from the directory printed by the installer.
+
+## Top 5
+
+If you install only five skills, take these.
+
+1. [bundle-snapshot-field](skills/bundle-snapshot-field/SKILL.md). Almost every feature changes what a trip stores, and a mistake breaks links people already shared. Old rows are never migrated, so this is the most expensive bug to ship.
+2. [bundle-api-cache](skills/bundle-api-cache/SKILL.md). Most providers are paid or rate-limited, and the cache rules are easy to get wrong: a fetcher that returns `[]` instead of throwing silently disables the fallback.
+3. [bundle-transport-routing](skills/bundle-transport-routing/SKILL.md). Routing is the core of the product and has the most hidden branches: distance thresholds, the short-haul flight ban, and a fallback for every segment type. It turns "why is this option missing?" into a short trace.
+4. [bundle-route-guard](skills/bundle-route-guard/SKILL.md). Timeouts and input checks keep landing one PR at a time (#169, #198, #199, #201), and several provider calls still have no timeout. This skill does the whole checklist at once.
+5. [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md). Every dev opens PRs, whatever their agent. It knows the real CI jobs, the docs-only skip, the Vercel preview and the `dev` to `main` flow, and works in Cursor, Claude Code, Codex and T3 Code.
