@@ -1,17 +1,29 @@
 ---
 name: bundle-event-search
-description: Debug or change Bundle Events event and venue search, ranking, deduplication and the "Des idées de sortie" ideas. Use when an event or venue is missing, duplicated or badly ranked.
+description: Use when a Bundle Events event or venue is missing, duplicated or badly ranked, including in 'Des idées de sortie'.
 ---
 
 # Bundle event search
 
-Read the events section of docs/api/internal-routes.md, src/app/api/events/search/route.ts, src/services/event-search.ts, src/adapters/events/ and src/utils/algorithms/venue-dedupe.ts.
+Read the events section of docs/api/internal-routes.md,
+src/app/api/events/search/route.ts, src/services/event-search.ts,
+src/adapters/events/ and src/utils/algorithms/venue-dedupe.ts.
 
-Pin the query: the `q` text or the `cities=` list, the expected event or venue, and what the user saw.
+Pin the query: the `q` text or the `cities=` list, the expected event or
+venue, and what the user saw. Call `/api/events/search` on `npm run dev` with
+the same parameters and read `eventSource` and `X-Cache`. Events come from
+Ticketmaster, then OpenAgenda, then Open Data IDF. Venues come from Mapbox POI
+and Nominatim. Without `TICKETMASTER_API_KEY` the search starts at OpenAgenda.
 
-1. Call `/api/events/search` on `npm run dev` with the same parameters and read `eventSource` and `X-Cache`. Events come from Ticketmaster, then OpenAgenda, then Open Data IDF. Venues come from Mapbox POI and Nominatim. Without `TICKETMASTER_API_KEY` the search starts at OpenAgenda.
-2. City queries put that city's concerts, festivals, shows and matches first. Ideas filter on `eventsConfig.ideaKeywords`, alternate city by city and stop at `eventsConfig.ideasLimit`, without venues.
-3. Missing venue: check city filtering (`isInCity`) and coordinate order. Duplicates: check the dedupe rules on name and coordinates.
-4. Event and venue lists are cached even when empty (6 h and 7 days). An empty cached answer after an outage will persist until it expires. Check the fetcher threw instead of returning `[]`.
+City queries put that city's concerts, festivals, shows and matches first.
+Ideas filter on `eventsConfig.ideaKeywords`, alternate city by city, stop at
+`eventsConfig.ideasLimit`, and include no venues. For a missing venue, check
+city filtering with `isInCity` and the coordinate order. For duplicates, check
+the dedupe rules on name and coordinates.
 
-Reproduce in src/__tests__/venue-city.test.ts or providers.test.ts with sanitized payloads. Update the route doc when ranking or sources change.
+Event and venue lists are cached even when empty, for 6 hours and 7 days. An
+empty answer cached during an outage persists until it expires, so check that
+the fetcher threw instead of returning `[]`.
+
+Reproduce in src/__tests__/venue-city.test.ts or providers.test.ts with
+sanitized payloads. Update the route doc when ranking or sources change.
