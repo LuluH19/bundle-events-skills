@@ -1,12 +1,28 @@
 ---
 name: bundle-review
-description: Review a Bundle Events pull request or branch diff for actionable regressions and coverage gaps.
+description: Use when asked to review a Bundle Events PR or branch.
 ---
 
-Resolve the PR's actual base and head and review the merge-base diff. For a local change, include the requested working-tree edits. Read AGENTS.md and the tests around the changed entry point. Follow the changed value from its producer to at least the affected consumer before reporting a defect.
+# Bundle review
 
-Choose probes from the diff. For a change to a fare calculation, trace an asymmetric round trip or a missing return price through the recap. For persistence changes, load a previously saved UUID missing the new field. For an adapter change, follow an empty or partial provider response through fallback and rendering. For workflow changes, trace the affected event through job conditions and the reported check result.
+Resolve the PR's real base and head and review the merge-base diff. For a
+local change, include the working-tree edits the user means. Read AGENTS.md
+and the tests around the changed entry point. Follow the changed value from
+its producer to at least one affected consumer before reporting a defect.
 
-Use a focused existing test, small local example, or concrete control-flow trace to substantiate each finding. Lead with findings in impact order. Give a file and line, triggering input, observable consequence, and a targeted correction or regression test. Separate unresolved questions from confirmed findings. If the review is clean, state the scope reviewed and any consequential verification gap.
+Pick probes from the diff. For a fare calculation, trace an asymmetric round
+trip or a missing return price through the recap. For a persistence change,
+load a previously saved UUID missing the new field. For an adapter change,
+follow an empty or partial provider response through the fallback and the
+rendering. For a workflow change, trace the event through the job conditions
+and the reported check result.
 
-Deliver the review in chat by default. Publish comments or submit a GitHub review when the user asks for that action. On re-review, check the current head and existing threads to avoid duplicating resolved feedback.
+Back each finding with a focused test, a small local example or a concrete
+trace. Lead with findings in impact order, each with a file and line, the
+triggering input, the visible consequence, and a targeted fix or regression
+test. Keep open questions apart from confirmed findings. If the review is
+clean, state what you reviewed and any important gap in verification.
+
+Deliver the review in chat by default. Post comments or submit a GitHub review
+only when the user asks. On a re-review, check the current head and the
+existing threads so you do not repeat resolved feedback.

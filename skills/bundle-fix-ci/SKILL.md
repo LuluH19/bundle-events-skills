@@ -1,10 +1,22 @@
 ---
 name: bundle-fix-ci
-description: Diagnose and repair a specific failing Bundle Events pull request check or GitHub Actions run.
+description: Use when a specific Bundle Events PR check or GitHub Actions run fails.
 ---
 
-Identify the failed run, commit, job and event. Compare its SHA with the current branch before editing. Use the available GitHub integration or Actions logs. Follow job dependencies back from skipped jobs or a red PR summary to the first failing command. A Discord webhook failure and a Next.js build failure have different owners.
+# Bundle fix ci
 
-Reproduce with the workflow's Node version, lockfile and exact command when possible. Distinguish an application failure, workflow logic error, and runner or service outage using the log evidence. For a fork-only failure, check which permissions and credentials that event receives. Preserve the check's purpose while repairing it.
+Identify the failed run, commit, job and event, and compare its SHA with the
+current branch before editing. Read the Actions logs. Follow job dependencies
+back from a skipped job or a red PR summary to the first failing command. A
+Discord webhook failure and a Next.js build failure have different owners.
 
-Run the failing command after the change. When asked to update the PR, push the fix and verify the new run against its SHA. Retry an unchanged run only when evidence points to a transient condition. Finish with the causal log line, fix, and verification status, indicating any remaining hosted-only check.
+Reproduce with the workflow's Node version, the lockfile and the exact command
+when possible. Use the log to tell an application failure from a workflow
+logic error or a runner or service outage. For a fork-only failure, check
+which permissions and secrets that event receives. Keep the check's purpose
+while repairing it.
+
+Run the failing command after the change. When asked to update the PR, push
+the fix and check the new run against its SHA. Retry an unchanged run only
+when the evidence points to a transient problem. Finish with the causal log
+line, the fix, and which hosted checks are still unverified.

@@ -1,37 +1,51 @@
 ---
 name: bundle-babysit-pr
-description: Watch a Bundle Events pull request through CI, the Vercel preview and teammate reviews, and fix what is real until it is ready to merge. Use when asked to babysit, watch or monitor a PR.
+description: Trigger this if the user says 'babysit', or asks to watch or monitor a Bundle Events PR.
 ---
 
-# Bundle babysit PR
+# Bundle babysit pr
 
-Feature and fix PRs target `dev`. Releases go `dev` into `main`, then `main` is merged back into `dev`. Know which kind of PR you are watching before acting.
+Feature and fix PRs target `dev`. Releases go from `dev` into `main`, then
+`main` is merged back into `dev`. Know which kind of PR you are watching
+before you act.
 
-## Wait without polling by hand
+Use one watcher per PR and never write your own `sleep` loop. In T3 Code,
+handle the current checks and comments, call `watch_pull_request`, and end the
+turn. Call `unwatch_pull_request` before you hand back. In Claude Code, run
+`gh pr checks <pr> --watch --fail-fast` with the Monitor tool or as one long
+background command. In Cursor and Codex, run the same command in the terminal
+and read its result when it exits. Restart the watcher after every push, and
+never post "still waiting" messages.
 
-Use one watcher per PR and never write your own `sleep` loop.
+CI runs Detect changes, Commit Lint, PR title, ESLint, TypeScript Check, Unit
+tests (Vitest), NPM Audit, Build, E2E tests (Playwright), Dev server boot and
+Secret Scan, then the `CI OK` gate. `CI OK` passes when each of its blocking
+dependencies succeeded or was skipped. Detect changes runs a docs-only check,
+and a docs-only PR skips the code jobs on purpose, so on a code PR check that
+the jobs your change needs actually ran. Lighthouse is informational. For a
+red job, compare the run's SHA with the PR head, then use `bundle-fix-ci` to
+find the first failing command.
 
-- T3 Code: handle the current checks and comments, call `watch_pull_request`, and end the turn. Call `unwatch_pull_request` before you hand back.
-- Claude Code: run `gh pr checks <pr> --watch --fail-fast` with the Monitor tool, or as one long background command.
-- Cursor and Codex: run `gh pr checks <pr> --watch --fail-fast` as one long terminal command and read its result when it exits.
+The `github-actions[bot]` summary comment must match the real job results. A
+skipped job is not a pass, except on a docs-only change. If the comment is
+missing, check the PR Summary job, which sits outside the `CI OK` gate.
 
-Restart the watcher after every push. Do not post "still waiting" messages.
+Open the `vercel[bot]` preview and click through the flow the PR changes, from
+search to "Ton voyage" to "Réserver". A green build does not prove the page
+works.
 
-## What to look at
+Answer every teammate review thread. Verify each claim against the code before
+changing anything, fix real findings, and reply with a short reason when you
+decline one. Only act on checks and comments newer than the latest push.
 
-- CI (`.github/workflows/ci.yml`): Detect changes, Commit Lint, PR title, ESLint, TypeScript Check, Unit tests (Vitest), NPM Audit, Build, E2E tests (Playwright), Dev server boot, Secret Scan, then the `CI OK` gate. `CI OK` passes when each of its blocking dependencies succeeded or was skipped. Detect changes runs a docs-only check (every file under docs/ or Markdown), and a docs-only PR skips the code jobs, so on a code PR check that the jobs your change needs actually ran. Lighthouse is informational. For a red job, use `bundle-fix-ci` to find the first failing command. Compare the run's SHA with the PR head first.
-- The `github-actions[bot]` summary comment: it must match the real job results. A skipped job is not a pass, except on a docs-only change, where the heavy jobs are skipped on purpose. If the comment is missing, check the PR Summary job, which sits outside the `CI OK` gate.
-- The `vercel[bot]` preview: open it and click through the flow the PR changes, from search to "Ton voyage" to "Réserver". A green build does not prove the page works.
-- Teammate reviews: answer every thread. Fix real findings, and reply with a short reason when you decline one. Verify each claim against the code before changing anything.
+Review rounds tend to grow a PR one small fix at a time. Fix real bugs in the
+intended case, and list other ideas as follow-ups in the PR description.
 
-Only act on checks and comments newer than the latest push.
+Run `git fetch` and check whether `dev` moved under the PR. If the PR is
+BEHIND or has conflicts, rebase on `origin/dev`, rerun `npm run lint`, `npm
+run typecheck` and `npm test`, push, and wait for green again.
 
-## Keep the PR small
-
-Review rounds tend to add small fixes until the PR has grown. Fix real bugs in the intended case. List extra ideas as follow-ups in the PR description instead of adding them.
-
-## Base branch and merging
-
-Run `git fetch` and check whether `dev` moved under the PR. If the PR is BEHIND or has conflicts, rebase on `origin/dev`, rerun `npm run lint`, `npm run typecheck` and `npm test`, push, and wait for green again.
-
-Merge only when the user asked for it. Otherwise report that the PR is ready, with the head SHA, check results and preview link. Never merge a red, BEHIND or conflicting PR, and never merge `dev` into `main` without the team's release decision.
+Merge only when the user asked for it. Otherwise report that the PR is ready,
+with the head SHA, the check results and the preview link. Never merge a red,
+BEHIND or conflicting PR, and never merge `dev` into `main` without the team's
+release decision.
