@@ -1,16 +1,28 @@
 ---
 name: bundle-docs-sync
-description: Update the French docs/ folder and AGENTS.md in the same change as a Bundle Events behavior, API, env or structure change. Use before committing or when asked to sync docs.
+description: Use before committing a Bundle Events change to behavior, an API, an env variable or the structure, or when asked to sync docs.
 ---
 
 # Bundle docs sync
 
-The team convention says docs are part of "done". Read docs/README.md for the index.
+The team convention says docs are part of "done". Read docs/README.md for the
+index.
 
-1. List what the diff changes: routes, query parameters, response fields, headers, env variables, cache durations, thresholds, snapshot fields, fallback order, UI flow, tests.
-2. Map each one to its page: docs/api/ for routes and providers, docs/architecture/ for cache, routing and persistence, docs/database/schema.md for stored shapes, docs/features/ for hotels, booking links, sharing, routing and the user flow, docs/getting-started/environment.md and .env.example for env variables, docs/contributing/conventions.md for test lists and conventions, docs/design/design-system.md for tokens.
-3. Edit those pages in French, matching their tone and table formats. Describe current behavior, not the history of the change, except for a ticket reference like the existing "(#148)".
-4. Fix stale statements you touch. docs/architecture/overview.md already notes that AGENTS.md lists a src/hooks/ folder that does not exist.
-5. Check every path and symbol you mention exists with `rg`, and that relative links resolve.
+List what the diff changes: routes, query parameters, response fields,
+headers, env variables, cache durations, thresholds, snapshot fields, fallback
+order, the UI flow and tests. Then map each item to its page. Routes and
+providers live in docs/api/. Cache, routing and persistence live in
+docs/architecture/. Stored shapes live in docs/database/schema.md. Hotels,
+booking links, sharing, routing and the user flow live in docs/features/. Env
+variables live in docs/getting-started/environment.md and .env.example. Test
+lists and conventions live in docs/contributing/conventions.md, and tokens in
+docs/design/design-system.md.
 
-Commit docs with the code they describe, not in a later PR.
+Edit those pages in French, matching their tone and table formats. Describe
+the current behavior, not the history of the change, except for a ticket
+reference like the existing "(#148)". Fix stale statements you touch, such as
+the src/hooks/ folder that AGENTS.md lists but that does not exist.
+
+Check that every path and symbol you mention exists with `rg`, and that
+relative links resolve. Commit the docs with the code they describe, not in a
+later PR.
