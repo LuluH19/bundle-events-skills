@@ -23,8 +23,9 @@ Secret Scan, then the `CI OK` gate. `CI OK` passes when each of its blocking
 dependencies succeeded or was skipped. Detect changes runs a docs-only check,
 and a docs-only PR skips the code jobs on purpose, so on a code PR check that
 the jobs your change needs actually ran. Lighthouse is informational. For a
-red job, compare the run's SHA with the PR head, then use `bundle-fix-ci` to
-find the first failing command.
+red job, compare the run's SHA with the PR head, follow the job dependencies
+back to the first failing command in the Actions log, and rerun that command
+locally with the workflow's Node version.
 
 The `github-actions[bot]` summary comment must match the real job results. A
 skipped job is not a pass, except on a docs-only change. If the comment is
