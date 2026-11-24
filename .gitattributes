@@ -1,0 +1,2 @@
+# Run on any system, so keep LF even on a Windows checkout.
+*.sh text eol=lf
