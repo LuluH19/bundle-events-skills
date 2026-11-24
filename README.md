@@ -7,6 +7,7 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 | [bundle-fare-check](skills/bundle-fare-check/SKILL.md) | “After I switch to one way, the recap still looks like a round-trip price. Reconcile the total.” |
 | [bundle-review](skills/bundle-review/SKILL.md) | “Review this branch for regressions when someone opens an older shared bundle.” |
 | [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md) | “Babysit my hotel fallback PR until it is ready.” |
+| [bundle-orchestrate](skills/bundle-orchestrate/SKILL.md) | “Orchestrate this issue up to a draft PR.” |
 | [bundle-council](skills/bundle-council/SKILL.md) | “Council: review this branch before I file the PR.” |
 | [bundle-api-cache](skills/bundle-api-cache/SKILL.md) | “Put the new SNCF call behind the shared cache.” |
 | [bundle-new-provider](skills/bundle-new-provider/SKILL.md) | “Add Eventbrite as an events source after OpenAgenda.” |
@@ -27,7 +28,11 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 
 ## Multi-model review
 
-`bundle-council` asks three models from three providers to review the change read-only. You check each finding against the code, fix, and ask for a fresh round until they agree. In Cursor it starts delegates with the `Task` tool and sets `model` per delegate, so it needs an account that offers models from at least three providers. If fewer are reachable it stops and says so.
+`bundle-council` asks several models to review the change read-only. You check each finding against the code, fix, and ask for a fresh round until they agree. It uses three providers when your agent can reach them. With one subscription, such as Claude Code alone, it uses different models from that provider and says so in the results.
+
+## Orchestration
+
+`bundle-orchestrate` takes one feature through scope, frozen tests, code, checks, council review and a draft PR. It needs no particular agent: it uses the subagent tool yours has, plus Git and `gh`. Install it with `bundle-council`, `bundle-review`, `bundle-e2e-flow` and `bundle-babysit-pr`, which it calls. It allows two correction rounds, never merges, and keeps its progress in the Git directory so another session can resume it.
 
 ## Install from Git
 

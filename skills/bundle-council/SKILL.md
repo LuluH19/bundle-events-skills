@@ -11,19 +11,28 @@ updated change. Do not defer known fixes until reviews return. If the user
 wants to discard the implementation and explore new ideas, skip fixes to code
 being replaced.
 
-Bring in three delegates, usually for review or feedback. Use one strong model
-from each of three different providers, at high reasoning effort. If the user
-names council members, use those. Otherwise pick the newest flagship model of
-each provider that the harness offers, and read the model list from the
-subagent tool rather than typing a name from memory.
+Bring in three delegates, usually for review or feedback, at high reasoning
+effort. If the user names council members, use those. Otherwise use the first
+line that fits what the harness can reach:
+
+- Three providers or more: the strongest model of each of three providers.
+- One or two providers: three different models, such as Opus, Sonnet and one
+  more on a Claude-only subscription. If only two models are offered, use two
+  delegates.
+- One model: two fresh delegates on it, each with different probes.
+
+A single subscription is enough, so never stop because a provider is missing.
+Read the model list from the subagent tool rather than typing a name from
+memory. If a member the user named is unavailable, say so.
 
 In T3 Code, use `orchestrator_capabilities` to resolve the models, then
 `delegate_task` to start one delegate per model in parallel. In Cursor, start
 each delegate with the `Task` tool in the same message, with `model` set
 explicitly, `readonly: true`, `run_in_background: true` and the
-`generalPurpose` subagent type. In Claude Code or Codex, use the harness's
-subagent tool. If you cannot reach three providers, or a named member is
-unavailable, report it instead of substituting.
+`generalPurpose` subagent type. In Claude Code, start the delegates with the
+`Agent` tool in the same message, with `model` set explicitly on each. In
+Codex, name a model and a reasoning effort for each agent you spawn. If the
+harness rejects the model, keep the inherited one and report that.
 
 Give each delegate a brief that stands alone: the goal in one sentence, the
 base and head refs, pointers to AGENTS.md and the changed files, and the
@@ -55,6 +64,8 @@ Rounds: 2
 | Gemini Pro | 7/10 | 9/10 |
 ```
 
+List the model that ran for each delegate, and under the table say if they
+all come from one provider, because such models tend to miss the same things.
 If a delegate gives no score, write `no score`. Do not invent one. If the PR
 is open, edit the description. Do not post a comment for this. If there is no
 PR, put the same results in the final reply only.
