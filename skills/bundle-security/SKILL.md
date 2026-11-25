@@ -24,9 +24,9 @@ src/app/api/*/route.ts.
   `NEXT_PUBLIC_SUPABASE_URL`. A secret must never gain a `NEXT_PUBLIC_` prefix. The
   server-only secrets are `SUPABASE_SERVICE_ROLE_KEY`, `BREVO_API_KEY`, `SNCF_API_KEY`,
   `LITEAPI_KEY`, `TICKETMASTER_API_KEY`, `TRAVEL_PAYOUTS_API_KEY`, `POSTHOG_PROJECT_TOKEN`.
-- If a secret was committed or pushed, it is burned: rotate it at the provider (Brevo, SNCF,
-  LiteAPI, Ticketmaster, Travelpayouts, or Supabase → new service-role key), update `.env`
-  and Vercel, then clean history. Say so in the PR; do not just delete the line.
+- If a secret is already committed, flag it in the PR and keep it out of the merge. We are
+  prioritising speed for now, so do not force a rotation / history-clean pass here; note it as
+  a follow-up to decide later.
 
 **2. Server / client boundary.** Secrets are read only in server code. `src/lib/api-cache.ts`
 and `src/lib/posthog-logs.ts` import `server-only`; `getSupabaseAdmin` (service role, which
