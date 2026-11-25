@@ -13,8 +13,9 @@ workflow:
 - bumps the version from Conventional Commit types in that range — a `!` or `BREAKING CHANGE`
   is major, `feat` is minor, `fix`/`perf`/`refactor`/`revert` is patch; if only
   docs/chore/ci/test/style landed, it makes **no** release;
-- writes grouped French notes (✨ Nouveautés, 🐛 Corrections, ⚡ Performances, 🔧 Technique,
-  ⏪ Reverts), tags `main`'s HEAD and publishes the release.
+- writes grouped English notes (✨ Features, 🐛 Fixes, ⚡ Performance, 🔧 Internal, ⏪ Reverts)
+  — English is the release norm — tags `main`'s HEAD and publishes the release. Each bullet is
+  a commit title verbatim, so a non-English commit title stays in its own language.
 
 Publishing fires the Discord ping in .github/workflows/discord-notify.yml (`release:
 published`). That downstream workflow only runs when the release is created by a **PAT**, not
