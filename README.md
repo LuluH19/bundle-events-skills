@@ -25,6 +25,7 @@ Utilisez ces skills depuis votre copie locale de l'application Bundle Events. Ch
 | [bundle-trip-dates](skills/bundle-trip-dates/SKILL.md) | « Un retour le même jour cherche des trains avant mon arrivée. » |
 | [bundle-supabase-migration](skills/bundle-supabase-migration/SKILL.md) | « Ajoute une colonne user_id à la table bundles. » |
 | [bundle-release](skills/bundle-release/SKILL.md) | « Prépare la release de dev vers main. » |
+| [bundle-auto-release](skills/bundle-auto-release/SKILL.md) | « Mets en place la release automatique quand on push sur main. » |
 
 ## Revue par plusieurs modèles
 
