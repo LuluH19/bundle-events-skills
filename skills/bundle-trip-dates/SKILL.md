@@ -1,6 +1,6 @@
 ---
 name: bundle-trip-dates
-description: Use for any Bundle Events date or time bug: the calendar, same-day trips, arrive-by and leave-after, or train search times.
+description: "Use for any Bundle Events date or time bug: the calendar, same-day trips, arrive-by and leave-after, or train search times."
 ---
 
 # Bundle trip dates

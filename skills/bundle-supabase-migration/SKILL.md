@@ -1,6 +1,6 @@
 ---
 name: bundle-supabase-migration
-description: Use for any Bundle Events database change beyond a new snapshot JSON key: tables, columns, functions or policies.
+description: "Use for any Bundle Events database change beyond a new snapshot JSON key: tables, columns, functions or policies."
 ---
 
 # Bundle supabase migration

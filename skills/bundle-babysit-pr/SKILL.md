@@ -6,16 +6,21 @@ description: Trigger this if the user says 'babysit', or asks to watch or monito
 # Bundle babysit pr
 
 Feature and fix PRs target `dev`. Releases go from `dev` into `main`, then
-`main` is merged back into `dev`. Know which kind of PR you are watching
-before you act.
+`main` is merged back into `dev`. A stacked PR targets another feature branch.
+Read the base with `gh pr view <pr> --json baseRefName` before you act.
 
-Use one watcher per PR and never write your own `sleep` loop. In T3 Code,
-handle the current checks and comments, call `watch_pull_request`, and end the
-turn. Call `unwatch_pull_request` before you hand back. In Claude Code, run
-`gh pr checks <pr> --watch --fail-fast` with the Monitor tool or as one long
-background command. In Cursor and Codex, run the same command in the terminal
-and read its result when it exits. Restart the watcher after every push, and
-never post "still waiting" messages.
+Use one watcher per PR and never write your own `sleep` loop. In Claude Code,
+run `gh pr checks <pr> --watch --fail-fast` as one long background command. In
+Cursor, run it in the terminal and read its result when it exits. It watches
+checks only, so read the reviews and threads each time it exits. Restart it
+after every push, and never post "still waiting" messages.
+
+CI runs only on PRs into `main` or `dev`. A stacked PR shows Vercel checks
+alone, which is not green. Run the checks locally and say so. When its parent
+merges, GitHub does not retarget it, because merged branches are kept.
+Retarget it to `dev`, update it with `bundle-modernize`, then push so CI runs.
+GitHub also skips CI on a conflicting PR, so its old green checks mean
+nothing.
 
 CI runs Detect changes, Commit Lint, PR title, ESLint, TypeScript Check, Unit
 tests (Vitest), NPM Audit, Build, E2E tests (Playwright), Dev server boot and
@@ -42,11 +47,17 @@ decline one. Only act on checks and comments newer than the latest push.
 Review rounds tend to grow a PR one small fix at a time. Fix real bugs in the
 intended case, and list other ideas as follow-ups in the PR description.
 
-Run `git fetch` and check whether `dev` moved under the PR. If the PR is
-BEHIND or has conflicts, rebase on `origin/dev`, rerun `npm run lint`, `npm
-run typecheck` and `npm test`, push, and wait for green again.
+Run `git fetch` and count `git rev-list --count <head>..origin/<base>`. GitHub
+does not report BEHIND here, because `dev` requires no status check. If a
+feature or fix PR is behind or has conflicts, first run `gh pr list --base
+<branch>`, and stop if another PR stacks on it. Ask the owner if the branch is
+not the user's. Record the PR's head SHA, rebase exactly that commit onto
+`origin/<base>`, and rerun `npm run lint`, `npm run typecheck` and `npm test`.
+Push with `--force-with-lease=<branch>:<recorded SHA>`, because the bare flag
+can erase a teammate's commit after a fetch. Never rebase `dev` for a release
+PR.
 
 Merge only when the user asked for it. Otherwise report that the PR is ready,
 with the head SHA, the check results and the preview link. Never merge a red,
-BEHIND or conflicting PR, and never merge `dev` into `main` without the team's
+conflicting or outdated PR, and never merge `dev` into `main` without the team's
 release decision.

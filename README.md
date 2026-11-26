@@ -6,6 +6,8 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 | --- | --- |
 | [bundle-fare-check](skills/bundle-fare-check/SKILL.md) | “After I switch to one way, the recap still looks like a round-trip price. Reconcile the total.” |
 | [bundle-review](skills/bundle-review/SKILL.md) | “Review this branch for regressions when someone opens an older shared bundle.” |
+| [bundle-try-app](skills/bundle-try-app/SKILL.md) | “Prove in the running app that the hotel survives a reload and a shared link.” |
+| [bundle-modernize](skills/bundle-modernize/SKILL.md) | “Modernize the user account PR.” |
 | [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md) | “Babysit my hotel fallback PR until it is ready.” |
 | [bundle-council](skills/bundle-council/SKILL.md) | “Council: review this branch before I file the PR.” |
 | [bundle-api-cache](skills/bundle-api-cache/SKILL.md) | “Put the new SNCF call behind the shared cache.” |
@@ -27,7 +29,7 @@ Use these skills from the Bundle Events application checkout. Each one works ind
 
 ## Multi-model review
 
-`bundle-council` asks three models from three providers to review the change read-only. You check each finding against the code, fix, and ask for a fresh round until they agree. In Cursor it starts delegates with the `Task` tool and sets `model` per delegate, so it needs an account that offers models from at least three providers. If fewer are reachable it stops and says so.
+`bundle-council` asks three models to review the change read-only. The agent checks each finding against the code, fixes it, and asks for a fresh round until they agree. In Cursor it uses three providers and sets `model` per delegate, so it needs an account that offers them. If fewer are reachable it stops and says so. In Claude Code it uses three Claude models and labels the result "Claude only".
 
 ## Install from Git
 
@@ -57,4 +59,8 @@ If you install only five skills, take these.
 2. [bundle-api-cache](skills/bundle-api-cache/SKILL.md). Most providers are paid or rate-limited, and the cache rules are easy to get wrong: a fetcher that returns `[]` instead of throwing silently disables the fallback.
 3. [bundle-transport-routing](skills/bundle-transport-routing/SKILL.md). Routing is the core of the product and has the most hidden branches: distance thresholds, the short-haul flight ban, and a fallback for every segment type. It turns "why is this option missing?" into a short trace.
 4. [bundle-route-guard](skills/bundle-route-guard/SKILL.md). Timeouts and input checks keep landing one PR at a time (#169, #198, #199, #201), and several provider calls still have no timeout. This skill does the whole checklist at once.
-5. [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md). Every dev opens PRs, whatever their agent. It knows the real CI jobs, the docs-only skip, the Vercel preview and the `dev` to `main` flow, and works in Cursor, Claude Code, Codex and T3 Code.
+5. [bundle-babysit-pr](skills/bundle-babysit-pr/SKILL.md). Every dev opens PRs, whatever their agent. It knows the real CI jobs, the docs-only skip, stacked PRs, the Vercel preview and the `dev` to `main` flow, and works in Cursor and Claude Code.
+
+## Credits
+
+Some skills adapt [tstack](https://github.com/t3dotgg/tstack) and [pstack](https://github.com/cursor/plugins/tree/main/pstack), both MIT. See [NOTICE.md](NOTICE.md).

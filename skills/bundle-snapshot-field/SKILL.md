@@ -10,6 +10,10 @@ description: Use for any change to what a Bundle Events trip stores in its Bundl
 migrated. Read docs/architecture/state-and-persistence.md and
 docs/database/schema.md first.
 
+`Location`, `RouteOption`, `HotelMapItem` and `BookedState` are stored inside
+the snapshot (src/types/bundle.ts), so changing one of those types changes old
+links too.
+
 Make the new field optional in the type and define what its absence means, as
 `preference` (absent means `"fast"`) and `hotelOptIn` do. Never rename or
 retype a stored key in place. Add the new key and keep reading the old one. If

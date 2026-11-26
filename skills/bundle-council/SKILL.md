@@ -11,25 +11,33 @@ updated change. Do not defer known fixes until reviews return. If the user
 wants to discard the implementation and explore new ideas, skip fixes to code
 being replaced.
 
-Bring in three delegates, usually for review or feedback. Use one strong model
-from each of three different providers, at high reasoning effort. If the user
-names council members, use those. Otherwise pick the newest flagship model of
-each provider that the harness offers, and read the model list from the
-subagent tool rather than typing a name from memory.
+Bring in three delegates, usually for review or feedback. If the user names
+council members, use those, and if one is unavailable, report it instead of
+substituting. Otherwise read the model list from the subagent tool rather than
+typing a name from memory.
 
-In T3 Code, use `orchestrator_capabilities` to resolve the models, then
-`delegate_task` to start one delegate per model in parallel. In Cursor, start
+In Cursor, use the newest flagship model of three different providers. Start
 each delegate with the `Task` tool in the same message, with `model` set
 explicitly, `readonly: true`, `run_in_background: true` and the
-`generalPurpose` subagent type. In Claude Code or Codex, use the harness's
-subagent tool. If you cannot reach three providers, or a named member is
-unavailable, report it instead of substituting.
+`generalPurpose` subagent type. If you cannot reach three providers, stop and
+report it.
+
+In Claude Code, the `Agent` tool offers only Claude models. Start three
+`general-purpose` agents in the same message with three distinct models,
+strongest first, and give each a different probe from `bundle-review`. They can
+write, so tell them not to. Before launch, record `git rev-parse HEAD`, `git
+status`, `git diff HEAD` and a copy of the untracked files, and compare all of
+them after. Label the result "Claude only", since models from one provider
+share blind spots.
+
+In another harness, use its subagent tool with the Cursor rule.
 
 Give each delegate a brief that stands alone: the goal in one sentence, the
 base and head refs, pointers to AGENTS.md and the changed files, and the
 probes `bundle-review` would pick for this diff. Keep their work read-only,
 and ask for findings in impact order with file, line, triggering input and
-observable consequence.
+observable consequence. A blocker needs the command that shows it and its
+output, or a trace from the input to the wrong result.
 
 Do not wait idle. When a result arrives, check its findings against the code
 at once and decide what to fix while the other delegates run. Do not edit
