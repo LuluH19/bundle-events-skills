@@ -1,13 +1,13 @@
 ---
 name: bundle-security
-description: Use before opening or reviewing any Bundle Events PR, when a secret or API key may be exposed, when adding or changing an API route, or to run a red-team exercise against our own running app. Covers the secret-leak gate, the server/client boundary, route handlers, Supabase and the red-team arsenal.
+description: Use before opening or reviewing any Bundle Events PR, when a secret or API key may be exposed, when adding or changing an API route, or to run a red-team exercise against our own running app. Covers the secret-leak gate, the server/client boundary, route handlers, Supabase and the red-team playbooks.
 ---
 
 # Bundle security
 
 Two jobs: a **blue-team gate** on every change, and **red-team exercises** against our
 own running app. Both only ever target assets we own (see Scope). This complements
-Claude Code's built-in `/security-review`; it adds project knowledge and the arsenal.
+Claude Code's built-in `/security-review`; it adds project knowledge and the red-team playbooks.
 
 Read docs/getting-started/environment.md, src/lib/supabase/server.ts, src/lib/api-cache.ts
 and src/__tests__/hotfix-security.test.ts first. The route handlers are the 16 files under
@@ -17,8 +17,12 @@ src/app/api/*/route.ts.
 
 **1. Secret leak (our most frequent miss).**
 - No real secret in the diff or the repo. `.env*` is gitignored except `.env.example`, which
-  holds only placeholders. Scan the working tree and the history, not just the diff:
-  `npx --yes gitleaks@8 detect --no-banner` and `git log -p -- .env .env.local | grep -i key`.
+  holds only placeholders. Scan the whole history, not just the diff, with gitleaks
+  (`brew install gitleaks`, or a release binary from github.com/gitleaks/gitleaks):
+  `gitleaks git --no-banner --redact .` for every commit, and
+  `gitleaks git --no-banner --redact --pre-commit .` for unstaged changes (add `--staged`
+  for staged ones). Never
+  `npx gitleaks`: the npm package of that name is unrelated to gitleaks.
 - `NEXT_PUBLIC_*` ships to the browser, so it is only for values that are public by design:
   `NEXT_PUBLIC_MAPBOX_TOKEN` (must be URL-restricted in Mapbox), `NEXT_PUBLIC_SITE_URL`,
   `NEXT_PUBLIC_SUPABASE_URL`. A secret must never gain a `NEXT_PUBLIC_` prefix. The
@@ -62,17 +66,19 @@ Dependabot PRs moving. Adding a dependency is a security decision — justify it
 
 ## Red team — exercise our own defence
 
-The arsenal is ../../security/arsenal (Claude-BugHunter, see ../../security/ATTRIBUTION.md):
-84 hunting skills under security/arsenal/skills, indexed by security/arsenal/skills/bug-bounty
-and security/arsenal/README.md.
+The playbooks come from Claude-BugHunter (github.com/elementalsouls/Claude-BugHunter, MIT +
+CC BY 4.0). We do not copy it here. Read a playbook at the commit we reviewed:
+https://raw.githubusercontent.com/elementalsouls/Claude-BugHunter/6a2153d9932adf41fa4d7f5dee626047c5005a83/skills/<name>/SKILL.md
+To use its full engine and commands, install it separately with its INSTALL.md. Its installer
+copies all 84 skills into your agent directory, so do it only where you do security work.
 
-**Scope — do not skip.** Point the arsenal only at assets we own and may test: the app on
+**Scope — do not skip.** Point these playbooks only at assets we own and may test: the app on
 `npm run dev` at localhost, or a Vercel preview / Supabase project that is ours, with test
 data. Never a third party, never production belonging to someone else. The upstream APIs we
 call (Mapbox, SNCF, LiteAPI, Ticketmaster, Trainline, Brevo…) are third parties: attack our
 endpoints that wrap them, never the providers. No real users' data in a test run.
 
-Pick the arsenal skill that matches our stack and run its recipes against our target, then
+Pick the playbook that matches our stack and run its recipes against our target, then
 fix and re-run:
 - `hunt-source-leak` — source maps, `.env`, `.git`, `/_next/static` on a deployed preview.
 - `hunt-nextjs` — `/_next/image` SSRF, middleware bypass, RSC/`__NEXT_DATA__` leakage.

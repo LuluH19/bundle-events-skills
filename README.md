@@ -41,7 +41,7 @@ Utilisez ces skills depuis votre copie locale de l'application Bundle Events. Ch
 
 `bundle-security` fait deux choses, toujours sur nos propres actifs : une **revue défensive** de chaque PR (fuite de secrets, frontière serveur/client, routes API, Supabase) et des **exercices red team** contre notre app lancée en local ou un preview à nous.
 
-Il s'appuie sur [`security/arsenal`](security/ATTRIBUTION.md), une copie de [Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter) (84 skills de hunting, MIT + CC BY 4.0). L'arsenal est de la référence, pas une dépendance installée : `install.sh` ne lie que les skills `bundle-*`. Pour un playbook précis, pointez l'agent vers `security/arsenal/skills/<nom>/SKILL.md`. Périmètre strict : jamais un tiers ni la production d'autrui, et les API externes qu'on appelle (Mapbox, SNCF, Brevo…) sont hors cible — on teste nos endpoints, pas les fournisseurs.
+Pour le red team, il renvoie aux playbooks de [Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter) (MIT + CC BY 4.0), lus directement sur GitHub au commit qu'on a relu. On ne les copie pas dans ce dépôt. Pour le moteur complet, installez Claude-BugHunter à part en suivant son `INSTALL.md`. Périmètre strict : jamais un tiers ni la production d'autrui. Les API externes qu'on appelle (Mapbox, SNCF, Brevo…) sont hors cible : on teste nos endpoints, pas les fournisseurs.
 
 ## Installation depuis Git
 
