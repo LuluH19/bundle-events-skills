@@ -21,6 +21,7 @@ Utilisez ces skills depuis votre copie locale de l'application Bundle Events. Ch
 | [bundle-e2e-flow](skills/bundle-e2e-flow/SKILL.md) | « Ajoute un test Playwright pour le changement d'hôtel. » |
 | [bundle-analytics-event](skills/bundle-analytics-event/SKILL.md) | « Suis les clics sur le nouveau bouton de réservation d'hôtel. » |
 | [bundle-route-guard](skills/bundle-route-guard/SKILL.md) | « Ajoute un timeout et des contrôles d'entrée à /api/trains/search. » |
+| [bundle-ui](skills/bundle-ui/SKILL.md) | « Ajoute une fenêtre pour choisir le nombre de voyageurs, en partant d'un composant 21st.dev. » |
 | [bundle-map-rendering](skills/bundle-map-rendering/SKILL.md) | « Le tracé du retour n'apparaît pas sur la carte. » |
 | [bundle-trip-dates](skills/bundle-trip-dates/SKILL.md) | « Un retour le même jour cherche des trains avant mon arrivée. » |
 | [bundle-supabase-migration](skills/bundle-supabase-migration/SKILL.md) | « Ajoute une colonne user_id à la table bundles. » |
