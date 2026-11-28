@@ -20,8 +20,9 @@ workflow:
 - publishes with `gh release create --verify-tag`, which fails rather than create a tag,
   and does nothing if that tag already has a release.
 
-So tag first, then merge: put the new tag on `main` (`bundle-tags` decides whether the
-change deserves one), and the next push to `main` releases it. A merge with no new tag
+So tag first, then merge: put the new tag on the commit being shipped, the head of the
+`dev` → `main` release PR, or on `main` itself (`bundle-tags` decides whether the change
+deserves one), and the merge releases it. A merge with no new tag
 since the last release publishes nothing. Pushing a tag alone publishes nothing either.
 
 Publishing fires the Discord ping in .github/workflows/discord-notify.yml (`release:
@@ -36,8 +37,8 @@ The workflow only announces the latest tag on `main`; it cannot judge whether th
 code is safe to ship. The pre-merge blockers stay human, in the `dev` → `main` release PR:
 check that the Supabase migrations and tables the docs require exist in production, and
 that the Vercel production variables are set. `bundle-release` still owns that curated
-path. If it drafts a release by hand, publishing that draft creates the tag on GitHub and
-the workflow then sees the release already exists and does nothing.
+path. Never publish a release by hand for a tag that does not exist: GitHub would create
+the tag.
 
 ## Debug
 

@@ -22,7 +22,8 @@ released at the next merge into `main`.
 - Also read the highest version tag overall (`git tag --sort=-v:refname`). New versions
   must be above it, even when it is not an ancestor: `v1.0.0` points at an old `dev`
   commit, not at a merge on `main`.
-- Only tag commits that are on `origin/main`. A commit that exists only on a feature
+- Only tag commits that are on `origin/main`, or the head of the open `dev` → `main`
+  release PR, which reaches `main` when it merges. A commit that exists only on a feature
   branch can still be rebased or squashed away.
 
 ## 2. Find the releases to tag
@@ -63,8 +64,9 @@ Then bump from the previous version, counting only the changes you kept: breakin
 users (a shared link or saved trip that stops working, a removed feature) is major, a new
 user-facing feature is minor, user-facing fixes and speed-ups alone are patch.
 
-Commits on `dev` (or `T`) that are not on `main` yet get **no** tag: they are not in
-production. Tag them once they are merged into `main`.
+Commits on `dev` (or `T`) that are not on `main` yet get **no** tag, except the head of
+the open `dev` → `main` release PR when the user is about to merge it: tagging it there
+means the merge publishes its release.
 
 Do not tag one PR at a time, as was done for v0.2 to v0.4, unless the user asks for it;
 even then, a PR that changes nothing for a user gets no tag.
@@ -81,7 +83,7 @@ even then, a PR that changes nothing for a user gets no tag.
   keeping those whose `merge_commit_sha` is in the range). Translate French titles; leave
   out dependency bumps, back-merges and CI.
 - `git tag -a vX.Y.Z <sha> -F <message file>`, then show the plan: version, commit, date,
-  PR merged, title. Only the newest tag gets a release at the next merge into `main`;
+  PR merged, title. Only the newest tag gets a release, at the next merge into `main`;
   older catch-up tags get none unless one is published by hand. If the user asked to
   create the tags, push each one, oldest first, with
   `git push origin vX.Y.Z`. If they only asked to check, stop at the plan. Never
