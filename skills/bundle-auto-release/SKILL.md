@@ -25,11 +25,10 @@ So tag first, then merge: put the new tag on the commit being shipped, the head 
 deserves one), and the merge releases it. A merge with no new tag
 since the last release publishes nothing. Pushing a tag alone publishes nothing either.
 
-Publishing fires the Discord ping in .github/workflows/discord-notify.yml (`release:
-published`). That downstream workflow only runs when the release is created by a **PAT**, not
-the default `GITHUB_TOKEN`: so for the Discord notification, set a repo secret `RELEASE_PAT`
-(a fine-grained token with `contents: write`). Without it the release is still published,
-just silently.
+After publishing, the workflow calls .github/workflows/discord-notify.yml (`workflow_call`
+with the tag) to post the Discord message. It has to: a release created with the default
+`GITHUB_TOKEN` does not fire the `release: published` event that sends the message for a
+release made by hand. No extra secret is needed beyond `DISCORD_WEBHOOK_RELEASE`.
 
 ## This does not replace the pre-merge gate
 
