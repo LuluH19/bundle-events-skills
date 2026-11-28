@@ -39,12 +39,11 @@ PRs into `main`, so check which jobs actually ran before calling the PR green.
 After it merges, open the back-merge PR from `main` to `dev` so the branches
 do not drift.
 
-Draft the GitHub release. Pick the next version from `gh release list`, check
-that the tag does not exist yet, and pin it to the release merge commit on
-`main` with `--target <full commit SHA>`, not to `dev`. v1.0.0 points at an
-older `dev` commit. Write the title and notes in French for the team, since
-they are posted to Discord and cut at 1500 characters. Publish only when the
-user asks, because publishing notifies Discord.
+A release never creates a tag. Before the release PR merges, make sure the
+version is tagged on a commit that will be on `main` (`bundle-tags` decides
+whether the change deserves one): the merge then publishes the release of the
+latest tag and notifies Discord (see `bundle-auto-release`). To curate the notes, edit the published release afterwards; never create
+a release whose tag does not exist yet (`gh release create --verify-tag`).
 
 Do not merge either PR without the user's go-ahead. Report the PR links, the
 checklist and the draft notes.
