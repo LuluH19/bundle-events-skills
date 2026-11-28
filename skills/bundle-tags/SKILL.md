@@ -9,9 +9,9 @@ A tag marks a version of the product that a user could tell apart from the previ
 This skill looks at the commits between the latest version tag and the commit checked out
 now, finds what reached production since, and creates a tag only where it marks a real,
 user-visible milestone. A merge into `main` is not a reason to tag by itself. The skill
-never moves, deletes or overwrites a tag. Tags are the only trigger for a release: once the
-Release workflow is on `main`, pushing a tag publishes its GitHub release and the Discord
-message, and nothing else creates a tag.
+never moves, deletes or overwrites a tag. Nothing else creates a tag: the Release workflow publishes, on
+every push to `main`, the release of the latest tag on `main`, so a tag placed now is
+released at the next merge into `main`.
 
 ## 1. Read the history
 
@@ -64,8 +64,7 @@ users (a shared link or saved trip that stops working, a removed feature) is maj
 user-facing feature is minor, user-facing fixes and speed-ups alone are patch.
 
 Commits on `dev` (or `T`) that are not on `main` yet get **no** tag: they are not in
-production, and the Release workflow ignores a tag outside `main`. Tag them after the next
-`dev` → `main` merge.
+production. Tag them once they are merged into `main`.
 
 Do not tag one PR at a time, as was done for v0.2 to v0.4, unless the user asks for it;
 even then, a PR that changes nothing for a user gets no tag.
@@ -82,9 +81,9 @@ even then, a PR that changes nothing for a user gets no tag.
   keeping those whose `merge_commit_sha` is in the range). Translate French titles; leave
   out dependency bumps, back-merges and CI.
 - `git tag -a vX.Y.Z <sha> -F <message file>`, then show the plan: version, commit, date,
-  PR merged, title. Pushing a tag publishes its release and pings Discord, so a catch-up of
-  several tags posts several messages: say so in the plan. If the user asked to create the
-  tags, push each one, oldest first, with
+  PR merged, title. Only the newest tag gets a release at the next merge into `main`;
+  older catch-up tags get none unless one is published by hand. If the user asked to
+  create the tags, push each one, oldest first, with
   `git push origin vX.Y.Z`. If they only asked to check, stop at the plan. Never
   `git push --tags` (it would push stray local tags) and never `--force`.
 
@@ -92,6 +91,6 @@ even then, a PR that changes nothing for a user gets no tag.
 
 List each tag created, with its commit, the PRs it covers and the changes that justify it.
 List each candidate left untagged and why: nothing a user would notice, grouped into a
-later tag, or not on `main` yet. Give the link of each release the workflow published
-(Actions → Release), or say that the workflow is not on `main` yet and no release was made.
+later tag, or not on `main` yet. Say that the newest tag will be released at the next push to
+`main`.
 Older tags v0.4.2 to v0.7.0 have no release.

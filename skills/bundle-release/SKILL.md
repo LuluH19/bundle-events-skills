@@ -39,11 +39,10 @@ PRs into `main`, so check which jobs actually ran before calling the PR green.
 After it merges, open the back-merge PR from `main` to `dev` so the branches
 do not drift.
 
-A release never creates a tag. After the merge, tag the release merge commit on
-`main` with `bundle-tags`, which decides whether the change deserves a version.
-Pushing that tag publishes the GitHub release through the Release workflow and
-notifies Discord (see `bundle-auto-release`), so push it only when the user
-asks. To curate the notes, edit the published release afterwards; never create
+A release never creates a tag. Before the release PR merges, make sure the
+version is tagged on a commit that will be on `main` (`bundle-tags` decides
+whether the change deserves one): the merge then publishes the release of the
+latest tag and notifies Discord (see `bundle-auto-release`). To curate the notes, edit the published release afterwards; never create
 a release whose tag does not exist yet (`gh release create --verify-tag`).
 
 Do not merge either PR without the user's go-ahead. Report the PR links, the

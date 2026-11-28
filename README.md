@@ -27,7 +27,7 @@ Utilisez ces skills depuis votre copie locale de l'application Bundle Events. Ch
 | [bundle-trip-dates](skills/bundle-trip-dates/SKILL.md) | « Un retour le même jour cherche des trains avant mon arrivée. » |
 | [bundle-supabase-migration](skills/bundle-supabase-migration/SKILL.md) | « Ajoute une colonne user_id à la table bundles. » |
 | [bundle-release](skills/bundle-release/SKILL.md) | « Prépare la release de dev vers main. » |
-| [bundle-auto-release](skills/bundle-auto-release/SKILL.md) | « Pourquoi la release du tag v1.1.0 n’a pas été publiée ? » |
+| [bundle-auto-release](skills/bundle-auto-release/SKILL.md) | « Pourquoi le merge dans main n’a publié aucune release ? » |
 | [bundle-pr](skills/bundle-pr/SKILL.md) | « Ouvre la PR de cette branche. » (template rempli, review demandée à Roland-HUON ou LuluH19) |
 | [bundle-tags](skills/bundle-tags/SKILL.md) | « Crée les tags manquants depuis le dernier tag. » |
 
