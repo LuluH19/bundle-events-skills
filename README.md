@@ -28,6 +28,8 @@ Utilisez ces skills depuis votre copie locale de l'application Bundle Events. Ch
 | [bundle-supabase-migration](skills/bundle-supabase-migration/SKILL.md) | « Ajoute une colonne user_id à la table bundles. » |
 | [bundle-release](skills/bundle-release/SKILL.md) | « Prépare la release de dev vers main. » |
 | [bundle-auto-release](skills/bundle-auto-release/SKILL.md) | « Mets en place la release automatique quand on push sur main. » |
+| [bundle-pr](skills/bundle-pr/SKILL.md) | « Ouvre la PR de cette branche. » (template rempli, review demandée à Roland-HUON ou LuluH19) |
+| [bundle-tags](skills/bundle-tags/SKILL.md) | « Crée les tags manquants depuis le dernier tag. » |
 
 ## Revue par plusieurs modèles
 
